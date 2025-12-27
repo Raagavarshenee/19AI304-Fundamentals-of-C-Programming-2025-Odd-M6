@@ -4,7 +4,7 @@
 ## 12. Implementation of programs using structure and union.
 ## 13. Implementation of programs for different storage classes.
 # Ex.No:26
-  Develop a C program using static storage class in function with parameter and without return to display the incremental float values as indicated in the following output.
+ develop a C program using the static storage class in a function with a parameter and without a return value to display the required output.
 | Input | Output                                       |
 |-------|----------------------------------------------|
 | 1     | 101.25&nbsp;&nbsp;201.50&nbsp;&nbsp;301.75&nbsp;&nbsp;402.00&nbsp;&nbsp;502.75 |
@@ -33,7 +33,34 @@ To develop a C program using the static storage class in a function with a param
 ### Step 8:
   Stop
 # Program:
+#include <stdio.h>
+
+void countCall(int x)
+{
+    static int count = 0;   // static variable
+    count = count + x;
+    printf("Count value = %d\n", count);
+}
+
+int main()
+{
+    int n = 1;
+
+    printf("First function call:\n");
+    countCall(n);
+
+    printf("Second function call:\n");
+    countCall(n);
+
+    printf("Third function call:\n");
+    countCall(n);
+
+    return 0;
+}
+
 # Output:
+<img width="281" height="211" alt="image" src="https://github.com/user-attachments/assets/524dcda2-2da4-4efc-93b2-46e1f1b77bb0" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -42,7 +69,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-6- Module 6 - FoC
 # Ex.No:27
   Implement a C program to perform arithmetic operations (addition, subtraction, multiplication, division) on two integers using function pointers. The user should input two numbers and select the desired operation from a menu.
-# Date : 
+
 # Aim:
   To implement a C program that uses function pointers to perform arithmetic operations (add, subtract, multiply, divide) on two integers based on user choice.
 # Algorithm:
@@ -79,7 +106,88 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 11:
   Stop
 # Program:
+#include <stdio.h>
+
+/* Function definitions */
+int add(int a, int b)
+{
+    return a + b;
+}
+
+int subtract(int a, int b)
+{
+    return a - b;
+}
+
+int multiply(int a, int b)
+{
+    return a * b;
+}
+
+int divide(int a, int b)
+{
+    return a / b;
+}
+
+int main()
+{
+    int a, b, choice, result;
+    int (*fp)(int, int);   // Function pointer
+
+    printf("Enter two integers: ");
+    scanf("%d %d", &a, &b);
+
+    printf("\nMenu\n");
+    printf("1. Addition\n");
+    printf("2. Subtraction\n");
+    printf("3. Multiplication\n");
+    printf("4. Division\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    switch (choice)
+    {
+        case 1:
+            fp = add;
+            result = fp(a, b);
+            printf("Result = %d\n", result);
+            break;
+
+        case 2:
+            fp = subtract;
+            result = fp(a, b);
+            printf("Result = %d\n", result);
+            break;
+
+        case 3:
+            fp = multiply;
+            result = fp(a, b);
+            printf("Result = %d\n", result);
+            break;
+
+        case 4:
+            if (b == 0)
+            {
+                printf("Division by zero is not allowed\n");
+            }
+            else
+            {
+                fp = divide;
+                result = fp(a, b);
+                printf("Result = %d\n", result);
+            }
+            break;
+
+        default:
+            printf("Invalid choice\n");
+    }
+
+    return 0;
+}
+
 # Output:
+<img width="343" height="332" alt="image" src="https://github.com/user-attachments/assets/87783d78-a035-4ede-99a4-d26089ffe849" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -123,7 +231,69 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10:
   Stop
 # Program:
+#include <stdio.h>
+
+/* Structure definition */
+struct Employee
+{
+    int empNo;
+    char name[50];
+    float salary;
+};
+
+int main()
+{
+    struct Employee emp[50];
+    int n, i;
+    float maxSalary;
+
+    printf("Enter number of employees: ");
+    scanf("%d", &n);
+
+    /* Read employee details */
+    for (i = 0; i < n; i++)
+    {
+        printf("\nEnter details of employee %d\n", i + 1);
+
+        printf("Employee Number: ");
+        scanf("%d", &emp[i].empNo);
+
+        printf("Name: ");
+        scanf("%s", emp[i].name);
+
+        printf("Salary: ");
+        scanf("%f", &emp[i].salary);
+    }
+
+    /* Find maximum salary */
+    maxSalary = emp[0].salary;
+    for (i = 1; i < n; i++)
+    {
+        if (emp[i].salary > maxSalary)
+        {
+            maxSalary = emp[i].salary;
+        }
+    }
+
+    /* Display employee(s) with highest salary */
+    printf("\nEmployee(s) with Highest Salary (%.2f):\n", maxSalary);
+    for (i = 0; i < n; i++)
+    {
+        if (emp[i].salary == maxSalary)
+        {
+            printf("Employee No: %d\n", emp[i].empNo);
+            printf("Name: %s\n", emp[i].name);
+            printf("Salary: %.2f\n\n", emp[i].salary);
+        }
+    }
+
+    return 0;
+}
+
+
 # Output:
+<img width="495" height="659" alt="image" src="https://github.com/user-attachments/assets/2e39ccb3-7959-40f0-8320-088d9ebcfe4a" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -166,7 +336,42 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 9:
   Stop
 # Program:
+#include <stdio.h>
+
+
+struct Person
+{
+    int birthYear;
+    int currentYear;
+};
+
+
+void calculateAge(struct Person *p)
+{
+    int age;
+    age = p->currentYear - p->birthYear;
+    printf("Present Age = %d years\n", age);
+}
+
+int main()
+{
+    struct Person person;
+
+    printf("Enter birth year: ");
+    scanf("%d", &person.birthYear);
+
+    printf("Enter current year: ");
+    scanf("%d", &person.currentYear);
+
+    
+    calculateAge(&person);
+
+    return 0;
+}
+
 # Output:
+<img width="456" height="119" alt="image" src="https://github.com/user-attachments/assets/0889b414-3b19-4ccc-aeeb-b4ef3ec59f1c" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
@@ -175,7 +380,7 @@ Thus, the program was implemented and executed successfully, and the required ou
 # IAPR-6- Module 6 - FoC
 # Ex.No:30
   Build a C program to demonstrate the use of a pointer to a union. Store an integer value in a union, access it using a union pointer, and display it as both an integer and a character.
-# Date : 
+
 # Aim:
   To build a program in C that uses a pointer to a union to store an integer value and display it in both integer and character format.
 # Algorithm:
@@ -202,7 +407,34 @@ Thus, the program was implemented and executed successfully, and the required ou
 ### Step 10:
   Stop
 # Program:
+#include <stdio.h>
+union Data
+{
+    int i;
+    char c;
+};
+
+int main()
+{
+    union Data d;
+    union Data *ptr;  
+
+    
+    d.i = 65;
+
+    
+    ptr = &d;
+
+    
+    printf("Integer value: %d\n", ptr->i);
+    printf("Character value: %c\n", ptr->c);
+
+    return 0;
+}
+
 # Output:
+<img width="354" height="109" alt="image" src="https://github.com/user-attachments/assets/887ae025-d733-4a5c-b868-f5e020558d5b" />
+
 # Result: 
 Thus, the program was implemented and executed successfully, and the required output was obtained.
 
